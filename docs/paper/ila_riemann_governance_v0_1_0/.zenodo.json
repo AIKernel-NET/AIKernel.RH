@@ -1,0 +1,51 @@
+{
+  "title": "Interface-Led Architecture and the Riemann Hypothesis: A System-Governance Heuristic for Prime Distribution and Dynamic Equilibrium",
+  "upload_type": "publication",
+  "publication_type": "technicalnote",
+  "description": "This technical note presents a conceptual and heuristic system-governance interpretation of the Riemann Hypothesis through Interface-Led Architecture. It does not claim to prove the Riemann Hypothesis. The paper maps primes to oscillatory Providers, zeta zeros to cancellation contracts, and the critical line to a governance boundary between divergent and over-damped prime-mode phases. English is the canonical version; Japanese is included as a companion translation.",
+  "creators": [
+    {
+      "name": "Sogawa, Takuya",
+      "orcid": "0009-0009-7499-2595"
+    }
+  ],
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "version": "v0.1.0",
+  "publication_date": "2026-05-23",
+  "doi": "10.5281/zenodo.20351129",
+  "keywords": [
+    "AIKernel",
+    "Interface-Led Architecture",
+    "Riemann Hypothesis",
+    "Riemann zeta function",
+    "prime distribution",
+    "system governance",
+    "heuristic model",
+    "critical line",
+    "prime-mode energy"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.20290614",
+      "relation": "cites",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.20322690",
+      "relation": "cites",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "https://github.com/AIKernel-NET/AIKernel.NET",
+      "relation": "issupplementedby",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://aikernel.net/",
+      "relation": "issupplementedby",
+      "scheme": "url"
+    }
+  ],
+  "language": "eng"
+}

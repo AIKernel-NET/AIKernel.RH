@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 680" width="100%" height="100%" style="background-color: #F8F9FA; font-family: system-ui, -apple-system, sans-serif;">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7F8C8D" />
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.05"/>
+    </filter>
+  </defs>
+
+  <text x="400" y="50" text-anchor="middle" font-size="22" font-weight="700" fill="#2C3E50">Interface-Led Architecture for the Riemann Hypothesis (AIKernel.RH)</text>
+
+  <g transform="translate(120, 90)">
+    <rect width="460" height="150" rx="8" fill="#FFFFFF" stroke="#3498DB" stroke-width="2" filter="url(#shadow)"/>
+    
+    <text x="20" y="35" font-size="18" font-weight="700" fill="#3498DB">Provider: IUniformPhaseProvider</text>
+    <path d="M 400 30 Q 410 20 420 30 T 440 30" fill="transparent" stroke="#3498DB" stroke-width="2" stroke-linecap="round"/>
+    
+    <text x="20" y="65" font-size="14" fill="#34495E">• Q-linear independence of freqs</text>
+    <text x="20" y="85" font-size="14" fill="#34495E">• Equidistribution on T^N</text>
+    <text x="20" y="105" font-size="14" fill="#34495E">• Mean-square cancellation bound</text>
+    <text x="20" y="125" font-size="14" fill="#34495E">• Pure phase signal θ_n(t)</text>
+  </g>
+
+  <line x1="350" y1="240" x2="350" y2="305" stroke="#7F8C8D" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="365" y="278" font-size="13" font-weight="500" fill="#7F8C8D">pure phase signal</text>
+
+  <line x1="80" y1="280" x2="600" y2="280" stroke="#BDC3C7" stroke-width="2" stroke-dasharray="6,6"/>
+  <text x="80" y="272" font-size="12" font-style="italic" fill="#95A5A6">Responsibility Isolation</text>
+
+  <g transform="translate(120, 315)">
+    <rect width="460" height="150" rx="8" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="2" filter="url(#shadow)"/>
+    
+    <text x="20" y="35" font-size="18" font-weight="700" fill="#7F8C8D">Operator Layer</text>
+    <path d="M 410 25 L 430 25 M 420 15 L 420 35 M 413 18 L 427 32 M 413 32 L 427 18" stroke="#7F8C8D" stroke-width="2" stroke-linecap="round"/>
+
+    <text x="20" y="65" font-size="14" fill="#34495E">• Regularization</text>
+    <text x="20" y="85" font-size="14" fill="#34495E">• Contour integration</text>
+    <text x="20" y="105" font-size="14" fill="#34495E">• Mellin transform</text>
+    <text x="20" y="125" font-size="14" fill="#34495E">• Explicit Formula Bridge (pre-stage)</text>
+  </g>
+
+  <line x1="350" y1="465" x2="350" y2="520" stroke="#7F8C8D" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="365" y="497" font-size="13" font-weight="500" fill="#7F8C8D">transformed signal</text>
+
+  <g transform="translate(120, 530)">
+    <rect width="460" height="110" rx="8" fill="#FFFFFF" stroke="#2C3E50" stroke-width="2" filter="url(#shadow)"/>
+    
+    <text x="20" y="35" font-size="18" font-weight="700" fill="#2C3E50">Observer Layer</text>
+    <path d="M 405 30 Q 420 15 435 30 Q 420 45 405 30" fill="transparent" stroke="#2C3E50" stroke-width="2"/>
+    <circle cx="420" cy="30" r="3" fill="#2C3E50"/>
+
+    <text x="20" y="65" font-size="14" fill="#34495E">• Explicit formula</text>
+    <text x="20" y="85" font-size="14" fill="#34495E">• Zero spectrum</text>
+    <text x="20" y="105" font-size="14" fill="#34495E">• Critical-line topology</text>
+  </g>
+
+  <g transform="translate(610, 90)">
+    <rect width="50" height="550" rx="4" fill="#E74C3C" opacity="0.08"/>
+    <line x1="0" y1="0" x2="0" y2="550" stroke="#E74C3C" stroke-width="2" stroke-dasharray="4,4"/>
+    
+    <g transform="translate(30, 275) rotate(90)">
+      <text x="0" y="0" text-anchor="middle" font-size="14" font-weight="700" fill="#C0392B" letter-spacing="3">FAIL-CLOSED BOUNDARY</text>
+    </g>
+  </g>
+
+  <text x="400" y="665" text-anchor="middle" font-size="12" font-weight="500" fill="#95A5A6">AIKernel.RH — Interface-Led Architecture</text>
+</svg>

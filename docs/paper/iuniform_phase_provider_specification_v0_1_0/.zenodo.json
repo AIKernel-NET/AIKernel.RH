@@ -1,0 +1,55 @@
+{
+  "title": "IUniformPhaseProvider Specification: A Minimal Contract for Independent Prime-Phase Generators",
+  "upload_type": "publication",
+  "publication_type": "technicalnote",
+  "description": "This technical note defines IUniformPhaseProvider as a minimal provider-side contract for isolating independent prime-phase generators in Riemann-Hypothesis-oriented prime-wave experiments. It is a contract specification, not a proof of the Riemann Hypothesis.",
+  "creators": [
+    {
+      "name": "Sogawa, Takuya",
+      "orcid": "0009-0009-7499-2595"
+    }
+  ],
+  "license": "cc-by-4.0",
+  "version": "v0.1.0",
+  "publication_date": "2026-05-25",
+  "doi": "10.5281/zenodo.20373240",
+  "language": "eng",
+  "keywords": [
+    "AIKernel",
+    "Interface-Led Architecture",
+    "Riemann Hypothesis",
+    "Uniform Phase Provider",
+    "IUniformPhaseProvider",
+    "Prime-Wave",
+    "Equidistribution",
+    "Lean",
+    "Contract Specification"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.20357202",
+      "relation": "cites",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.20290614",
+      "relation": "cites",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.20322690",
+      "relation": "cites",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/AIKernel-NET/AIKernel.NET",
+      "relation": "issupplementedby",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://aikernel.net/",
+      "relation": "issupplementedby",
+      "scheme": "url"
+    }
+  ]
+}

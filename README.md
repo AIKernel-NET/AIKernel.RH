@@ -73,37 +73,13 @@ AIKernel.RH/
 │
 ├── docs/                     ← Papers & specifications (CC-BY-4.0)
 │   ├── paper/
-│   │   ├── prime-wave-phase-transition-ja.md
-│   │   ├── prime-wave-phase-transition-en.md
-│   │   └── uniform-phase-provider-spec.md
 │   └── diagrams/
 │       ├── architecture.png
 │       └── phase-diagram.png
 │
 ├── lean/                     ← Lean 4 formal proof architecture (MIT)
-│   ├── lakefile.lean
-│   ├── lean-toolchain
-│   ├── ILA/
-│   │   ├── UniformPhaseProvider.lean
-│   │   ├── Equidistribution.lean
-│   │   ├── CancellationBound.lean
-│   │   └── ConditionalProofInterface.lean
-│   └── Tests/
-│       └── MockProvider.lean
-│
-├── csharp/                   ← Numerical experiments (MIT)
-│   ├── AIKernel.RH.sln
-│   ├── PrimeWave/
-│   │   ├── PrimeWaveSimulator.cs
-│   │   ├── TorusOrbitPlot.cs
-│   │   └── EnergyPhaseDiagram.cs
-│   └── Experiments/
-│       ├── MockProviderExperiment.cs
-│       └── UniformPhaseExperiment.cs
-│
-└── scripts/                  ← Optional automation
-    ├── generate-plots.py
-    └── run-experiments.sh
+├── csharp/                   ← Numerical experiments (MIT) TBD
+
 ```
 
 ##  Core Concept: IUniformPhaseProvider
@@ -241,6 +217,6 @@ Contributions are welcome in:
 - Mathematical analysis
     
 
-## 🌟 Author / 著者
+## Author / 著者
 
 **Takuya Sogawa** AIKernel.NET ORCID: 0009-0009-7499-2595

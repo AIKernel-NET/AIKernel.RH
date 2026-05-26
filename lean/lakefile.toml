@@ -1,0 +1,14 @@
+name = "primegenerator"
+version = "0.1.0"
+defaultTargets = ["primegenerator"]
+
+[[lean_lib]]
+name = "ILA"   # ← srcDir を書かない
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+
+[[lean_exe]]
+name = "primegenerator"
+root = "Main"

@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "Prime-Wave Phase Transition and Conditional Proof Interfaces: A Second Interface-Led Approach to the Riemann Hypothesis"
+message: "If you use this work, please cite it using the metadata from this file."
+type: report
+authors:
+  - family-names: Sogawa
+    given-names: Takuya
+    orcid: "https://orcid.org/0009-0009-7499-2595"
+doi: "10.5281/zenodo.20357202"
+version: "v0.1.0"
+date-released: "2026-05-24"
+license: "CC-BY-4.0"

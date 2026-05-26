@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "IUniformPhaseProvider Specification: A Minimal Contract for Independent Prime-Phase Generators"
+message: "If you use this work, please cite it using the metadata from this file."
+type: report
+authors:
+  - family-names: Sogawa
+    given-names: Takuya
+    orcid: "https://orcid.org/0009-0009-7499-2595"
+doi: "10.5281/zenodo.20373240"
+version: "v0.1.0"
+date-released: "2026-05-25"
+license: CC-BY-4.0
