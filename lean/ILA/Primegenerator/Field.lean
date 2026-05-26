@@ -18,7 +18,7 @@ namespace ILA.Primegenerator
 def localField (n r : Nat) : Nat :=
   let left  := n - r
   let right := n + r
-  let deficit := if h : n ≥ r then 0 else (r - n)
+  let deficit := if _h : n ≥ r then 0 else (r - n)
   let right' := right - deficit
   let range := List.range (right' - left + 1) |>.map (· + left)
   range.foldl (fun acc x => acc + interferenceEnergy x) 0
