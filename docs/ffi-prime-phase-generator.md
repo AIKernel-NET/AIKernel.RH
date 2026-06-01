@@ -1,69 +1,129 @@
 # Prime Phase Generator Native ABI
 
-This note describes the v1.4.0 native ABI boundary for integrating the Lean
-Prime Phase Generator with AIKernel operators through C and C#.
+This note describes the native ABI boundary for integrating the Lean Prime
+Phase Generator with AIKernel operators through C and C#.
 
-## Lean boundary
+## Exported API
 
-Lean exposes a C symbol declaration through `@[extern]` in
-`lean/ILA/Primegenerator/FFI.lean`:
+The stable DLL/shared-library surface is:
+
+```c
+uint64_t get_interference_energy(uint64_t n);
+
+void get_interference_energy_batch(
+    const uint64_t* input,
+    uint64_t* output,
+    size_t count);
+
+uint64_t get_phase(uint64_t n);
+
+void get_interference_detail(
+    uint64_t n,
+    uint64_t* phase,
+    uint64_t* energy,
+    uint64_t* residue);
+
+void search_stable_points(
+    uint64_t start,
+    uint64_t end,
+    uint64_t* buffer,
+    size_t* count);
+
+uint64_t get_phase_difference(uint64_t a, uint64_t b);
+
+uint64_t estimate_period(uint64_t n);
+
+void map_to_phase(
+    const uint64_t* input,
+    uint64_t* output,
+    size_t count);
+```
+
+`phase` is `n % 24`, `residue` is `n % 12`, and phase difference is the
+shortest circular distance on the 24-phase ring. `estimate_period` returns `24`
+for the current phase map. For `search_stable_points`, `*count` is an input
+capacity and is replaced with the number of values written.
+
+## Lean Boundary
+
+Lean declarations live in `lean/ILA/Primegenerator/FFI.lean`.
+
+Scalar functions use direct `UInt64` declarations:
 
 ```lean
 @[extern "get_interference_energy"]
 opaque interferenceEnergyExtern (n : UInt64) : UInt64
+
+@[extern "get_phase"]
+opaque phaseExtern (n : UInt64) : UInt64
+
+@[extern "get_phase_difference"]
+opaque phaseDifferenceExtern (a b : UInt64) : UInt64
+
+@[extern "estimate_period"]
+opaque estimatePeriodExtern (n : UInt64) : UInt64
 ```
 
-This declaration is for Lean code that wants to call the native ABI symbol.
-Lean-generated C symbols are runtime-aware, so the stable P/Invoke surface is
-implemented by the plain C shim in `native/AIKernel_RH`.
+Pointer-oriented ABI entries are also named at the Lean boundary. Lean does not
+provide a stable public raw-pointer type in this project, so these declarations
+use address-width `UInt64` parameters and the type-safe pointer handling is kept
+in the C/C# layer.
 
-The toolchain in this repository is Lean 4.31.0-rc1. It does not expose a
-`--export-c` flag; use `-c` for C emission:
+Lean-generated fallback symbols are exported with `@[export]` for scalar helper
+functions. The toolchain in this repository is Lean 4.31.0-rc1. It does not
+expose a `--export-c` flag; use `-c` for C emission:
 
 ```powershell
 cd lean
 lake env lean -c ..\native\AIKernel_RH\generated\ffi.c ILA\Primegenerator\FFI.lean
 ```
 
-If you use the generated Lean C directly, include the Lean runtime and initialize
-it according to Lean's generated-code ABI. For .NET interop, prefer the C shim
-below because it exports plain `uint64_t` functions with `cdecl`.
+If generated Lean C is linked directly, initialize the Lean runtime according to
+Lean's generated-code ABI before invoking generated symbols. The shipped
+`native/AIKernel_RH` library is a plain stateless C ABI shim and therefore does
+not require Lean runtime initialization for normal C# P/Invoke use.
 
-## C ABI
+## C Build
 
-Header:
-
-```c
-uint64_t get_interference_energy(uint64_t n);
-uint8_t is_prime_phase(uint64_t n);
-void get_interference_energy_batch(
-    const uint64_t* inputs,
-    uint64_t* outputs,
-    size_t count);
-```
-
-Build the portable DLL/shared library:
+MSVC:
 
 ```powershell
-cmake -S native/AIKernel_RH -B native/AIKernel_RH/build
+cmd.exe /d /s /c '"C:\Program Files\Microsoft Visual Studio\18\Community\Common7\Tools\VsDevCmd.bat" -arch=x64 -host_arch=x64 && cmake -S native\AIKernel_RH -B native\AIKernel_RH\build -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release && cmake --build native\AIKernel_RH\build --config Release'
+```
+
+clang, Linux, or macOS:
+
+```sh
+cmake -S native/AIKernel_RH -B native/AIKernel_RH/build -DCMAKE_BUILD_TYPE=Release
 cmake --build native/AIKernel_RH/build --config Release
 ```
 
-Linux/macOS use the same commands and produce `libAIKernel_RH.so` or
-`libAIKernel_RH.dylib`. Windows produces `AIKernel_RH.dll`.
-
-The C implementation is stateless and thread-safe. `get_interference_energy`
-counts nontrivial divisors exactly, matching the Lean semantics of
-`interferenceEnergy`.
+Windows produces `AIKernel_RH.dll`, Linux produces `libAIKernel_RH.so`, and
+macOS produces `libAIKernel_RH.dylib`.
 
 ## C# P/Invoke
 
+The C# wrapper lives in `csharp/AIKernel.RH.Native/PrimePhaseNative.cs`. It uses
+`CallingConvention.Cdecl` for every native entry and exposes allocation-free
+`Span<ulong>` overloads for batch operations:
+
 ```csharp
-[DllImport("AIKernel_RH", CallingConvention = CallingConvention.Cdecl,
-    EntryPoint = "get_interference_energy")]
-public static extern ulong GetInterferenceEnergy(ulong n);
+var inputs = new ulong[] { 2, 12, 97 };
+Span<ulong> outputs = stackalloc ulong[inputs.Length];
+PrimePhaseNative.GetInterferenceEnergyBatch(inputs, outputs);
 ```
 
-Use `PrimePhaseNative.GetInterferenceEnergyParallel` for TPL-based parallel
-calls. For millions of inputs, prefer `GetInterferenceEnergyBatch` to reduce
-P/Invoke transition overhead by crossing the ABI boundary once per batch.
+Run the smoke-test console after building the native library:
+
+```powershell
+dotnet run --project csharp\AIKernel.RH.Native.SmokeTest\AIKernel.RH.Native.SmokeTest.csproj -- native\AIKernel_RH\build\AIKernel_RH.dll
+```
+
+## ABI And Safety Notes
+
+- All exported C functions use fixed-width integer types and `cdecl`.
+- The DLL implementation is stateless and thread-safe.
+- Batch APIs accept null pointers as no-ops to keep the ABI defensive.
+- Output spans and buffers are owned by the caller.
+- `search_stable_points` never writes more than the input capacity in `*count`.
+- For high-volume .NET workloads, prefer batch APIs over per-value P/Invoke.

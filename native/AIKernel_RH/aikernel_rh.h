@@ -21,7 +21,30 @@ AIKERNEL_RH_API uint64_t get_interference_energy(uint64_t n);
 
 AIKERNEL_RH_API uint8_t is_prime_phase(uint64_t n);
 
+AIKERNEL_RH_API uint64_t get_phase(uint64_t n);
+
+AIKERNEL_RH_API void get_interference_detail(
+    uint64_t n,
+    uint64_t* phase,
+    uint64_t* energy,
+    uint64_t* residue);
+
+AIKERNEL_RH_API void search_stable_points(
+    uint64_t start,
+    uint64_t end,
+    uint64_t* buffer,
+    size_t* count);
+
+AIKERNEL_RH_API uint64_t get_phase_difference(uint64_t a, uint64_t b);
+
+AIKERNEL_RH_API uint64_t estimate_period(uint64_t n);
+
 AIKERNEL_RH_API void get_interference_energy_batch(
+    const uint64_t* inputs,
+    uint64_t* outputs,
+    size_t count);
+
+AIKERNEL_RH_API void map_to_phase(
     const uint64_t* inputs,
     uint64_t* outputs,
     size_t count);
