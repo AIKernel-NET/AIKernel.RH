@@ -1,4 +1,5 @@
 import Mathlib.Data.Nat.Prime.Basic
+import Mathlib.Tactic
 import ILA.Primegenerator.RadixFilter
 
 namespace ILA.Provider
@@ -117,24 +118,5 @@ theorem PG1224_complete (n : Nat) :
       · exact Or.inr (Or.inr (Or.inr
           (isPrimeCandidate24_of_prime_ne_two_ne_three hp h2 h3)))
   · exact hp
-
-def isPrimeGenerator (G : Nat → Prop) : Prop :=
-  (∀ n, G n → Nat.Prime n) ∧
-  (∀ n, Nat.Prime n → G n)
-
-def minimalPrimeGenerator (G : Nat → Prop) : Prop :=
-  isPrimeGenerator G ∧
-  ∀ G', isPrimeGenerator G' → ∀ n, G n → G' n
-
-theorem PG1224_minimal :
-  minimalPrimeGenerator (fun n => generatesImpl PG1224 n) := by
-  constructor
-  · constructor
-    · intro n hgenerated
-      exact PG1224_sound n hgenerated
-    · intro n hp
-      exact PG1224_complete n hp
-  · intro G' hG' n hgenerated
-    exact hG'.2 n (PG1224_sound n hgenerated)
 
 end ILA.Provider
