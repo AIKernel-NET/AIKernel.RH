@@ -17,15 +17,25 @@
 extern "C" {
 #endif
 
+typedef enum AIKernelPhase {
+    AIKERNEL_PHASE_NONE = 0,
+    AIKERNEL_PHASE_PP = 1,
+    AIKERNEL_PHASE_PM = 2,
+    AIKERNEL_PHASE_MP = 3,
+    AIKERNEL_PHASE_MM = 4
+} AIKernelPhase;
+
 AIKERNEL_RH_API uint64_t get_interference_energy(uint64_t n);
 
 AIKERNEL_RH_API uint8_t is_prime_phase(uint64_t n);
 
-AIKERNEL_RH_API uint64_t get_phase(uint64_t n);
+AIKERNEL_RH_API uint64_t get_phase_residue(uint64_t n);
+
+AIKERNEL_RH_API uint8_t get_phase(uint64_t n);
 
 AIKERNEL_RH_API void get_interference_detail(
     uint64_t n,
-    uint64_t* phase,
+    uint8_t* phase,
     uint64_t* energy,
     uint64_t* residue);
 
@@ -46,7 +56,7 @@ AIKERNEL_RH_API void get_interference_energy_batch(
 
 AIKERNEL_RH_API void map_to_phase(
     const uint64_t* inputs,
-    uint64_t* outputs,
+    uint8_t* outputs,
     size_t count);
 
 #ifdef __cplusplus

@@ -9,8 +9,17 @@ public static partial class PrimePhaseNative
 {
     private const string LibraryName = "AIKernel_RH";
 
+    public enum AIKernelPhase : byte
+    {
+        None = 0,
+        Pp = 1,
+        Pm = 2,
+        Mp = 3,
+        Mm = 4
+    }
+
     public readonly record struct InterferenceDetail(
-        ulong Phase,
+        AIKernelPhase Phase,
         ulong Energy,
         ulong Residue);
 
@@ -22,7 +31,12 @@ public static partial class PrimePhaseNative
     public static extern bool IsPrimePhase(ulong n);
 
     [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "get_phase")]
-    public static extern ulong GetPhase(ulong n);
+    private static extern byte GetPhaseNative(ulong n);
+
+    [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "get_phase_residue")]
+    public static extern ulong GetPhaseResidue(ulong n);
+
+    public static AIKernelPhase GetPhase(ulong n) => (AIKernelPhase)GetPhaseNative(n);
 
     [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "get_phase_difference")]
     public static extern ulong GetPhaseDifference(ulong a, ulong b);
@@ -33,7 +47,7 @@ public static partial class PrimePhaseNative
     [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "get_interference_detail")]
     private static extern unsafe void GetInterferenceDetailNative(
         ulong n,
-        ulong* phase,
+        byte* phase,
         ulong* energy,
         ulong* residue);
 
@@ -46,7 +60,7 @@ public static partial class PrimePhaseNative
     [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "map_to_phase")]
     private static extern unsafe void MapToPhaseNative(
         ulong* inputs,
-        ulong* outputs,
+        byte* outputs,
         UIntPtr count);
 
     [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "search_stable_points")]
@@ -58,12 +72,12 @@ public static partial class PrimePhaseNative
 
     public static unsafe InterferenceDetail GetInterferenceDetail(ulong n)
     {
-        ulong phase = 0;
+        byte phase = 0;
         ulong energy = 0;
         ulong residue = 0;
 
         GetInterferenceDetailNative(n, &phase, &energy, &residue);
-        return new InterferenceDetail(phase, energy, residue);
+        return new InterferenceDetail((AIKernelPhase)phase, energy, residue);
     }
 
     public static ulong[] GetInterferenceEnergyBatch(ReadOnlySpan<ulong> inputs)
@@ -94,14 +108,21 @@ public static partial class PrimePhaseNative
         }
     }
 
-    public static ulong[] MapToPhase(ReadOnlySpan<ulong> inputs)
+    public static AIKernelPhase[] MapToPhase(ReadOnlySpan<ulong> inputs)
     {
-        var outputArray = new ulong[inputs.Length];
-        MapToPhase(inputs, outputArray);
+        var outputBytes = new byte[inputs.Length];
+        MapToPhaseBytes(inputs, outputBytes);
+        var outputArray = new AIKernelPhase[inputs.Length];
+
+        for (var i = 0; i < outputBytes.Length; ++i)
+        {
+            outputArray[i] = (AIKernelPhase)outputBytes[i];
+        }
+
         return outputArray;
     }
 
-    public static unsafe void MapToPhase(ReadOnlySpan<ulong> inputs, Span<ulong> outputs)
+    public static unsafe void MapToPhaseBytes(ReadOnlySpan<ulong> inputs, Span<byte> outputs)
     {
         if (outputs.Length < inputs.Length)
         {
@@ -114,7 +135,7 @@ public static partial class PrimePhaseNative
         }
 
         fixed (ulong* inputPtr = inputs)
-        fixed (ulong* outputPtr = outputs)
+        fixed (byte* outputPtr = outputs)
         {
             MapToPhaseNative(inputPtr, outputPtr, (UIntPtr)inputs.Length);
         }
