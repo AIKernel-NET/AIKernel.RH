@@ -39,22 +39,4 @@ theorem PrimeGenerator_stable_sound
     ⟨hgenerated.1,
       (interferenceEnergy_eq_zero_iff_no_nontrivial_divisors n).2 hgenerated.2⟩
 
-theorem PrimeGenerator_complete
-  (g : PrimeGenerator) (n : Nat) :
-  isPrime n → generates g n := by
-  intro hprime
-  unfold isPrime at hprime
-  unfold generates
-  exact hprime
-
-theorem PrimeGenerator_generates_iff_prime
-  (g : PrimeGenerator) (n : Nat) :
-  generates g n ↔ isPrime n := by
-  constructor
-  · intro hgenerated
-    unfold generates at hgenerated
-    unfold isPrime
-    exact hgenerated
-  · exact PrimeGenerator_complete g n
-
 end ILA.Primegenerator
