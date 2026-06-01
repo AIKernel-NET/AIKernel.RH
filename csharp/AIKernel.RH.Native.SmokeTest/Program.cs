@@ -28,6 +28,12 @@ var batchOutput = PrimePhaseNative.GetInterferenceEnergyBatch(batchInput);
 Console.WriteLine(string.Join(", ", batchOutput.Take(32)));
 
 Console.WriteLine();
+Console.WriteLine("Chunked batched parallel API: first 32 of 1000 energies");
+var chunkedOutput = PrimePhaseParallelSample.RunChunkedBatchedParallel(1001, chunkSize: 128);
+Console.WriteLine(string.Join(", ", chunkedOutput.Skip(1).Take(32)));
+Console.WriteLine($"matches direct batch from 1..1000: {batchOutput.SequenceEqual(chunkedOutput.Skip(1))}");
+
+Console.WriteLine();
 Console.WriteLine("Interference detail");
 foreach (var n in new ulong[] { 2, 12, 97, 9973 })
 {
