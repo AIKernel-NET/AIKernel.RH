@@ -79,10 +79,30 @@ opaque phaseDifferenceExtern (a b : UInt64) : UInt64
 opaque estimatePeriodExtern (n : UInt64) : UInt64
 ```
 
-Pointer-oriented ABI entries are also named at the Lean boundary. Lean does not
-provide a stable public raw-pointer type in this project, so these declarations
-use address-width `UInt64` parameters and the type-safe pointer handling is kept
-in the C/C# layer.
+Pointer-oriented ABI entries are also named at the Lean boundary. Address-like
+parameters and `size_t` values use `USize`, which maps to the platform pointer
+width and keeps the Lean declaration aligned with `uintptr_t`/`size_t` at the C
+boundary:
+
+```lean
+@[extern "get_interference_energy_batch"]
+opaque interferenceEnergyBatchExtern
+  (input output count : USize) : Unit
+
+@[extern "get_interference_detail"]
+opaque interferenceDetailExtern
+  (n : UInt64) (phase energy residue : USize) : Unit
+
+@[extern "search_stable_points"]
+opaque searchStablePointsExtern
+  (start stop : UInt64) (buffer count : USize) : Unit
+
+@[extern "map_to_phase"]
+opaque mapToPhaseExtern
+  (input output count : USize) : Unit
+```
+
+The type-safe pointer handling remains in the C/C# layer.
 
 Lean-generated fallback symbols are exported with `@[export]` for scalar helper
 functions. The toolchain in this repository is Lean 4.31.0-rc1. It does not

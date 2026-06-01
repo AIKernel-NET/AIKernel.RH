@@ -15,7 +15,7 @@ opaque interferenceEnergyExtern (n : UInt64) : UInt64
 
 @[extern "get_interference_energy_batch"]
 opaque interferenceEnergyBatchExtern
-  (input output count : UInt64) : Unit
+  (input output count : USize) : Unit
 
 @[extern "get_phase"]
 opaque phaseExtern (n : UInt64) : UInt8
@@ -25,11 +25,11 @@ opaque phaseResidueExtern (n : UInt64) : UInt64
 
 @[extern "get_interference_detail"]
 opaque interferenceDetailExtern
-  (n phase energy residue : UInt64) : Unit
+  (n : UInt64) (phase energy residue : USize) : Unit
 
 @[extern "search_stable_points"]
 opaque searchStablePointsExtern
-  (start stop buffer count : UInt64) : Unit
+  (start stop : UInt64) (buffer count : USize) : Unit
 
 @[extern "get_phase_difference"]
 opaque phaseDifferenceExtern (a b : UInt64) : UInt64
@@ -39,7 +39,7 @@ opaque estimatePeriodExtern (n : UInt64) : UInt64
 
 @[extern "map_to_phase"]
 opaque mapToPhaseExtern
-  (input output count : UInt64) : Unit
+  (input output count : USize) : Unit
 
 /--
 Lean-compiled fallback symbol with Lean's generated-code ABI.
