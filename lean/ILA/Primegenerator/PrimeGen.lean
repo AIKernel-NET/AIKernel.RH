@@ -1,5 +1,5 @@
 import Mathlib.Data.Nat.Prime.Basic
-import ILA.Provider.RadixFilter
+import ILA.Primegenerator.RadixFilter
 
 namespace ILA.Provider
 
@@ -39,13 +39,17 @@ theorem primeGen24_implies_prime {n : Nat} (h : primeGen24 n) : Nat.Prime n :=
 theorem prime_not_always_primeGen12 : ¬ ∀ n, Nat.Prime n → primeGen12 n := by
   intro h
   have h2 := h 2 Nat.prime_two
-  have h_false : ¬ isPrimeCandidate12 2 := by decide
+  have h_false : ¬ isPrimeCandidate12 2 := by
+    unfold isPrimeCandidate12 isResidueCandidate base12Allowed
+    decide
   exact h_false h2.left
 
 theorem prime_not_always_primeGen24 : ¬ ∀ n, Nat.Prime n → primeGen24 n := by
   intro h
   have h2 := h 2 Nat.prime_two
-  have h_false : ¬ isPrimeCandidate24 2 := by decide
+  have h_false : ¬ isPrimeCandidate24 2 := by
+    unfold isPrimeCandidate24 isResidueCandidate base24Allowed
+    decide
   exact h_false h2.left
 
 end ILA.Provider
