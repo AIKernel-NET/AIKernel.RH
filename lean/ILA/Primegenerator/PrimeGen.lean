@@ -1,5 +1,4 @@
 import Mathlib.Data.Nat.Prime.Basic
-import Mathlib.Tactic
 import ILA.Primegenerator.RadixFilter
 
 namespace ILA.Provider
