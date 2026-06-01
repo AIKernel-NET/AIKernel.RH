@@ -1,0 +1,52 @@
+{
+  "title": "Phase-Interference Energy and the Formal Structure of the PG1224 Prime Generation System",
+  "upload_type": "publication",
+  "publication_type": "technicalnote",
+  "description": "This research note reformulates the elementary number-theoretic structure of natural numbers using the operational concept of phase-interference energy. It defines interference energy as a measure of non-trivial divisors, clarifies the boundary condition excluding 0 and 1 through the domain condition 2 ≤ n, and sketches a Lean 4 formalization of the equivalence among Nat.Prime n, interferenceEnergy n = 0, and isStableFixedPoint n. The note also introduces PG1224, a prime-candidate generation system based on residue-class filtering modulo 12 and 24, interpreted as cancellation of trivial interference caused by divisibility by 2 and 3. The English manuscript is canonical; the Japanese manuscript is included as a companion translation.",
+  "creators": [
+    {
+      "name": "Sogawa, Takuya",
+      "orcid": "0009-0009-7499-2595",
+      "affiliation": "AIKernel Project"
+    }
+  ],
+  "publication_date": "2026-06-01",
+  "version": "v0.1.0",
+  "license": "cc-by-4.0",
+  "language": "eng",
+  "keywords": [
+    "AIKernel",
+    "PG1224",
+    "Interference Energy",
+    "Prime Numbers",
+    "Lean 4",
+    "Formal Verification",
+    "Residue-class Filtering",
+    "Stable Fixed Point",
+    "Governance Model"
+  ],
+  "doi": "10.5281/zenodo.20483437",
+  "related_identifiers": [
+    {
+      "identifier": "https://doi.org/10.1145/3372885.3373824",
+      "relation": "cites",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "https://doi.org/10.1007/978-3-319-21401-6_26",
+      "relation": "cites",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "https://github.com/AIKernel-NET/AIKernel.NET",
+      "relation": "issupplementedby",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://aikernel.net/",
+      "relation": "issupplementedby",
+      "scheme": "url"
+    }
+  ],
+  "notes": "The English manuscript is canonical. The Japanese manuscript is included as a companion translation."
+}
