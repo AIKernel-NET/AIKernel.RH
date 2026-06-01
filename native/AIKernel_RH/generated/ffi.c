@@ -23,21 +23,21 @@ lean_object* lp_primegenerator_ILA_Primegenerator_Phase_ofNat_x3f(lean_object*);
 lean_object* lp_primegenerator_ILA_Primegenerator_interferenceEnergy__fast(lean_object*);
 uint64_t get_interference_energy(uint64_t);
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_interferenceEnergyExtern___boxed(lean_object*);
-lean_object* get_interference_energy_batch(uint64_t, uint64_t, uint64_t);
+lean_object* get_interference_energy_batch(size_t, size_t, size_t);
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_interferenceEnergyBatchExtern___boxed(lean_object*, lean_object*, lean_object*);
 uint8_t get_phase(uint64_t);
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_phaseExtern___boxed(lean_object*);
 uint64_t get_phase_residue(uint64_t);
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_phaseResidueExtern___boxed(lean_object*);
-lean_object* get_interference_detail(uint64_t, uint64_t, uint64_t, uint64_t);
+lean_object* get_interference_detail(uint64_t, size_t, size_t, size_t);
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_interferenceDetailExtern___boxed(lean_object*, lean_object*, lean_object*, lean_object*);
-lean_object* search_stable_points(uint64_t, uint64_t, uint64_t, uint64_t);
+lean_object* search_stable_points(uint64_t, uint64_t, size_t, size_t);
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_searchStablePointsExtern___boxed(lean_object*, lean_object*, lean_object*, lean_object*);
 uint64_t get_phase_difference(uint64_t, uint64_t);
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_phaseDifferenceExtern___boxed(lean_object*, lean_object*);
 uint64_t estimate_period(uint64_t);
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_estimatePeriodExtern___boxed(lean_object*);
-lean_object* map_to_phase(uint64_t, uint64_t, uint64_t);
+lean_object* map_to_phase(size_t, size_t, size_t);
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_mapToPhaseExtern___boxed(lean_object*, lean_object*, lean_object*);
 LEAN_EXPORT uint64_t lean_interference_energy_fast_u64(uint64_t);
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_interferenceEnergyFastU64___boxed(lean_object*);
@@ -65,13 +65,13 @@ return v_r_5_;
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_interferenceEnergyBatchExtern___boxed(lean_object* v_input_9_, lean_object* v_output_10_, lean_object* v_count_11_){
 _start:
 {
-uint64_t v_input_boxed_12_; uint64_t v_output_boxed_13_; uint64_t v_count_boxed_14_; lean_object* v_res_15_; 
-v_input_boxed_12_ = lean_unbox_uint64(v_input_9_);
-lean_dec_ref(v_input_9_);
-v_output_boxed_13_ = lean_unbox_uint64(v_output_10_);
-lean_dec_ref(v_output_10_);
-v_count_boxed_14_ = lean_unbox_uint64(v_count_11_);
-lean_dec_ref(v_count_11_);
+size_t v_input_boxed_12_; size_t v_output_boxed_13_; size_t v_count_boxed_14_; lean_object* v_res_15_; 
+v_input_boxed_12_ = lean_unbox_usize(v_input_9_);
+lean_dec(v_input_9_);
+v_output_boxed_13_ = lean_unbox_usize(v_output_10_);
+lean_dec(v_output_10_);
+v_count_boxed_14_ = lean_unbox_usize(v_count_11_);
+lean_dec(v_count_11_);
 v_res_15_ = get_interference_energy_batch(v_input_boxed_12_, v_output_boxed_13_, v_count_boxed_14_);
 return v_res_15_;
 }
@@ -101,15 +101,15 @@ return v_r_25_;
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_interferenceDetailExtern___boxed(lean_object* v_n_30_, lean_object* v_phase_31_, lean_object* v_energy_32_, lean_object* v_residue_33_){
 _start:
 {
-uint64_t v_n_boxed_34_; uint64_t v_phase_boxed_35_; uint64_t v_energy_boxed_36_; uint64_t v_residue_boxed_37_; lean_object* v_res_38_; 
+uint64_t v_n_boxed_34_; size_t v_phase_boxed_35_; size_t v_energy_boxed_36_; size_t v_residue_boxed_37_; lean_object* v_res_38_; 
 v_n_boxed_34_ = lean_unbox_uint64(v_n_30_);
 lean_dec_ref(v_n_30_);
-v_phase_boxed_35_ = lean_unbox_uint64(v_phase_31_);
-lean_dec_ref(v_phase_31_);
-v_energy_boxed_36_ = lean_unbox_uint64(v_energy_32_);
-lean_dec_ref(v_energy_32_);
-v_residue_boxed_37_ = lean_unbox_uint64(v_residue_33_);
-lean_dec_ref(v_residue_33_);
+v_phase_boxed_35_ = lean_unbox_usize(v_phase_31_);
+lean_dec(v_phase_31_);
+v_energy_boxed_36_ = lean_unbox_usize(v_energy_32_);
+lean_dec(v_energy_32_);
+v_residue_boxed_37_ = lean_unbox_usize(v_residue_33_);
+lean_dec(v_residue_33_);
 v_res_38_ = get_interference_detail(v_n_boxed_34_, v_phase_boxed_35_, v_energy_boxed_36_, v_residue_boxed_37_);
 return v_res_38_;
 }
@@ -117,15 +117,15 @@ return v_res_38_;
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_searchStablePointsExtern___boxed(lean_object* v_start_43_, lean_object* v_stop_44_, lean_object* v_buffer_45_, lean_object* v_count_46_){
 _start:
 {
-uint64_t v_start_boxed_47_; uint64_t v_stop_boxed_48_; uint64_t v_buffer_boxed_49_; uint64_t v_count_boxed_50_; lean_object* v_res_51_; 
+uint64_t v_start_boxed_47_; uint64_t v_stop_boxed_48_; size_t v_buffer_boxed_49_; size_t v_count_boxed_50_; lean_object* v_res_51_; 
 v_start_boxed_47_ = lean_unbox_uint64(v_start_43_);
 lean_dec_ref(v_start_43_);
 v_stop_boxed_48_ = lean_unbox_uint64(v_stop_44_);
 lean_dec_ref(v_stop_44_);
-v_buffer_boxed_49_ = lean_unbox_uint64(v_buffer_45_);
-lean_dec_ref(v_buffer_45_);
-v_count_boxed_50_ = lean_unbox_uint64(v_count_46_);
-lean_dec_ref(v_count_46_);
+v_buffer_boxed_49_ = lean_unbox_usize(v_buffer_45_);
+lean_dec(v_buffer_45_);
+v_count_boxed_50_ = lean_unbox_usize(v_count_46_);
+lean_dec(v_count_46_);
 v_res_51_ = search_stable_points(v_start_boxed_47_, v_stop_boxed_48_, v_buffer_boxed_49_, v_count_boxed_50_);
 return v_res_51_;
 }
@@ -157,13 +157,13 @@ return v_r_64_;
 LEAN_EXPORT lean_object* l_ILA_Primegenerator_FFI_mapToPhaseExtern___boxed(lean_object* v_input_68_, lean_object* v_output_69_, lean_object* v_count_70_){
 _start:
 {
-uint64_t v_input_boxed_71_; uint64_t v_output_boxed_72_; uint64_t v_count_boxed_73_; lean_object* v_res_74_; 
-v_input_boxed_71_ = lean_unbox_uint64(v_input_68_);
-lean_dec_ref(v_input_68_);
-v_output_boxed_72_ = lean_unbox_uint64(v_output_69_);
-lean_dec_ref(v_output_69_);
-v_count_boxed_73_ = lean_unbox_uint64(v_count_70_);
-lean_dec_ref(v_count_70_);
+size_t v_input_boxed_71_; size_t v_output_boxed_72_; size_t v_count_boxed_73_; lean_object* v_res_74_; 
+v_input_boxed_71_ = lean_unbox_usize(v_input_68_);
+lean_dec(v_input_68_);
+v_output_boxed_72_ = lean_unbox_usize(v_output_69_);
+lean_dec(v_output_69_);
+v_count_boxed_73_ = lean_unbox_usize(v_count_70_);
+lean_dec(v_count_70_);
 v_res_74_ = map_to_phase(v_input_boxed_71_, v_output_boxed_72_, v_count_boxed_73_);
 return v_res_74_;
 }
