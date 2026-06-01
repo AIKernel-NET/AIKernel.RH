@@ -14,10 +14,11 @@ NativeLibrary.SetDllImportResolver(
 
 Console.WriteLine($"Native library: {nativePath}");
 
-Console.WriteLine("Single API: n, phase, energy");
+Console.WriteLine("Single API: n, phase, residue, energy");
 for (ulong n = 1; n <= 100; ++n)
 {
-    Console.WriteLine($"{n,3}: phase={PrimePhaseNative.GetPhase(n),2}, energy={PrimePhaseNative.GetInterferenceEnergy(n)}");
+    Console.WriteLine(
+        $"{n,3}: phase={PrimePhaseNative.GetPhase(n),4}, residue={PrimePhaseNative.GetPhaseResidue(n),2}, energy={PrimePhaseNative.GetInterferenceEnergy(n)}");
 }
 
 Console.WriteLine();

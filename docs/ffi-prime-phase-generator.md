@@ -15,11 +15,21 @@ void get_interference_energy_batch(
     uint64_t* output,
     size_t count);
 
-uint64_t get_phase(uint64_t n);
+typedef enum AIKernelPhase {
+    AIKERNEL_PHASE_NONE = 0,
+    AIKERNEL_PHASE_PP = 1,
+    AIKERNEL_PHASE_PM = 2,
+    AIKERNEL_PHASE_MP = 3,
+    AIKERNEL_PHASE_MM = 4
+} AIKernelPhase;
+
+uint64_t get_phase_residue(uint64_t n);
+
+uint8_t get_phase(uint64_t n);
 
 void get_interference_detail(
     uint64_t n,
-    uint64_t* phase,
+    uint8_t* phase,
     uint64_t* energy,
     uint64_t* residue);
 
@@ -35,14 +45,16 @@ uint64_t estimate_period(uint64_t n);
 
 void map_to_phase(
     const uint64_t* input,
-    uint64_t* output,
+    uint8_t* output,
     size_t count);
 ```
 
-`phase` is `n % 24`, `residue` is `n % 12`, and phase difference is the
-shortest circular distance on the 24-phase ring. `estimate_period` returns `24`
-for the current phase map. For `search_stable_points`, `*count` is an input
-capacity and is replaced with the number of values written.
+`get_phase` returns the Lean `Phase.ofNat?` encoding: `none=0`, `pp=1`,
+`pm=2`, `mp=3`, `mm=4`. `get_phase_residue` is the raw `n % 24` value,
+`residue` is `n % 12`, and phase difference is the shortest circular distance
+on the 24-phase residue ring. `estimate_period` returns `24` for the current
+phase-residue map. For `search_stable_points`, `*count` is an input capacity
+and is replaced with the number of values written.
 
 ## Lean Boundary
 
@@ -55,7 +67,10 @@ Scalar functions use direct `UInt64` declarations:
 opaque interferenceEnergyExtern (n : UInt64) : UInt64
 
 @[extern "get_phase"]
-opaque phaseExtern (n : UInt64) : UInt64
+opaque phaseExtern (n : UInt64) : UInt8
+
+@[extern "get_phase_residue"]
+opaque phaseResidueExtern (n : UInt64) : UInt64
 
 @[extern "get_phase_difference"]
 opaque phaseDifferenceExtern (a b : UInt64) : UInt64
@@ -111,6 +126,9 @@ The C# wrapper lives in `csharp/AIKernel.RH.Native/PrimePhaseNative.cs`. It uses
 var inputs = new ulong[] { 2, 12, 97 };
 Span<ulong> outputs = stackalloc ulong[inputs.Length];
 PrimePhaseNative.GetInterferenceEnergyBatch(inputs, outputs);
+
+Span<byte> phases = stackalloc byte[inputs.Length];
+PrimePhaseNative.MapToPhaseBytes(inputs, phases);
 ```
 
 Run the smoke-test console after building the native library:

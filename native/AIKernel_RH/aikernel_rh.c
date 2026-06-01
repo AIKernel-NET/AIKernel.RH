@@ -65,13 +65,28 @@ AIKERNEL_RH_API uint8_t is_prime_phase(uint64_t n) {
     return get_interference_energy(n) == 0u ? 1u : 0u;
 }
 
-AIKERNEL_RH_API uint64_t get_phase(uint64_t n) {
+AIKERNEL_RH_API uint64_t get_phase_residue(uint64_t n) {
     return n % 24u;
+}
+
+AIKERNEL_RH_API uint8_t get_phase(uint64_t n) {
+    switch (n % 12u) {
+    case 1u:
+        return (uint8_t)AIKERNEL_PHASE_PP;
+    case 5u:
+        return (uint8_t)AIKERNEL_PHASE_PM;
+    case 7u:
+        return (uint8_t)AIKERNEL_PHASE_MP;
+    case 11u:
+        return (uint8_t)AIKERNEL_PHASE_MM;
+    default:
+        return (uint8_t)AIKERNEL_PHASE_NONE;
+    }
 }
 
 AIKERNEL_RH_API void get_interference_detail(
     uint64_t n,
-    uint64_t* phase,
+    uint8_t* phase,
     uint64_t* energy,
     uint64_t* residue) {
     if (phase != 0) {
@@ -123,8 +138,8 @@ AIKERNEL_RH_API void search_stable_points(
 }
 
 AIKERNEL_RH_API uint64_t get_phase_difference(uint64_t a, uint64_t b) {
-    const uint64_t pa = get_phase(a);
-    const uint64_t pb = get_phase(b);
+    const uint64_t pa = get_phase_residue(a);
+    const uint64_t pb = get_phase_residue(b);
     const uint64_t forward = (pa + 24u - pb) % 24u;
     const uint64_t backward = (pb + 24u - pa) % 24u;
 
@@ -151,7 +166,7 @@ AIKERNEL_RH_API void get_interference_energy_batch(
 
 AIKERNEL_RH_API void map_to_phase(
     const uint64_t* inputs,
-    uint64_t* outputs,
+    uint8_t* outputs,
     size_t count) {
     if (inputs == 0 || outputs == 0) {
         return;

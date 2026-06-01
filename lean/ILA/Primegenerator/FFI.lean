@@ -1,4 +1,5 @@
 import ILA.Primegenerator.InterferenceEnergyFast
+import ILA.Primegenerator.Phase
 
 namespace ILA.Primegenerator.FFI
 
@@ -17,7 +18,10 @@ opaque interferenceEnergyBatchExtern
   (input output count : UInt64) : Unit
 
 @[extern "get_phase"]
-opaque phaseExtern (n : UInt64) : UInt64
+opaque phaseExtern (n : UInt64) : UInt8
+
+@[extern "get_phase_residue"]
+opaque phaseResidueExtern (n : UInt64) : UInt64
 
 @[extern "get_interference_detail"]
 opaque interferenceDetailExtern
@@ -50,6 +54,24 @@ def interferenceEnergyFastU64 (n : UInt64) : UInt64 :=
 
 @[export lean_get_phase_u64]
 def phaseU64 (n : UInt64) : UInt64 :=
+  match Phase.ofNat? n.toNat with
+  | none => 0
+  | some Phase.pp => 1
+  | some Phase.pm => 2
+  | some Phase.mp => 3
+  | some Phase.mm => 4
+
+@[export lean_get_phase_u8]
+def phaseU8 (n : UInt64) : UInt8 :=
+  match Phase.ofNat? n.toNat with
+  | none => 0
+  | some Phase.pp => 1
+  | some Phase.pm => 2
+  | some Phase.mp => 3
+  | some Phase.mm => 4
+
+@[export lean_get_phase_residue_u64]
+def phaseResidueU64 (n : UInt64) : UInt64 :=
   UInt64.ofNat (n.toNat % 24)
 
 @[export lean_get_phase_difference_u64]
